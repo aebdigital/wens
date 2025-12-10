@@ -140,7 +140,7 @@ function loadFooter() {
                         <a href="/o-nas">O nás</a>
                         <a href="/produkty/dvere/seria-a">Produkty</a>
                         <a href="/kontakt">Kontakt</a>
-                        <a href="/referencie">Portfólio</a>
+                        <a href="/referencie">Referencie</a>
                     </div>
                    
                     <div class="footer-contact">

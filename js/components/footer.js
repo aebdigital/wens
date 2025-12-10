@@ -169,7 +169,7 @@ function loadFooter() {
                 </div>
                 
                 <div class="footer-copyright">
-                    <p>&copy; WENS DOOR s.r.o. 2025 &nbsp;&nbsp; <a href="/pages/ochrana-osobnych-udajov.html">Ochrana osobných údajov</a> &nbsp;&nbsp; <a href="#" onclick="openCookieSettings(); return false;">Nastavenia cookies</a></p>
+                    <p>&copy; WENS DOOR s.r.o. 2025 &nbsp;&nbsp; <a href="/ochrana-osobnych-udajov">Ochrana osobných údajov</a> &nbsp;&nbsp; <a href="#" onclick="openCookieSettings(); return false;">Nastavenia cookies</a></p>
                 </div>
             </div>
         </footer>

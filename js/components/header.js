@@ -77,12 +77,12 @@ function loadNavigation() {
         <div class="mobile-overlay"></div>
         <div class="mobile-sidebar">
             <ul class="mobile-nav-menu">
-                <li><a href="${basePath}index.html" class="mobile-nav-link">Domov</a></li>
+                <li><a href="/" class="mobile-nav-link">Domov</a></li>
                 <li><a href="/produkty/dvere/seria-a" class="mobile-nav-link">Produkty a služby</a></li>
-                <li><a href="${pagesPath}o-nas.html" class="mobile-nav-link">O nás</a></li>
-                <li><a href="${pagesPath}referencie.html" class="mobile-nav-link">Referencie</a></li>
-                <li><a href="${pagesPath}blog.html" class="mobile-nav-link">Blog</a></li>
-                <li><a href="${pagesPath}kontakt.html" class="mobile-nav-link">Kontakt</a></li>
+                <li><a href="/o-nas" class="mobile-nav-link">O nás</a></li>
+                <li><a href="/referencie" class="mobile-nav-link">Referencie</a></li>
+                <li><a href="/blog" class="mobile-nav-link">Blog</a></li>
+                <li><a href="/kontakt" class="mobile-nav-link">Kontakt</a></li>
             </ul>
         </div>
     `;

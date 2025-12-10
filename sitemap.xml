@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- Homepage -->
+    <url>
+        <loc>https://www.wens.sk/</loc>
+        <lastmod>2025-01-23</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Main Product Categories -->
+    <url>
+        <loc>https://www.wens.sk/produkty/nabytok</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/schody</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/zarubne</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/obklady</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Door Series Pages -->
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/seria-a</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/seria-e</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/seria-f</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/seria-g</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/seria-h</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/seria-i</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/seria-s</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/seria-v</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/dvere-bezfalcove</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/dvere-posuvne</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/dvere/dvere-falcove</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Glass Wall Series Pages -->
+    <url>
+        <loc>https://www.wens.sk/produkty/celoskla/celoskla-css</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/celoskla/celoskla-csps</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/celoskla/celoskla-csp</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/celoskla/celoskla-sk</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/celoskla/celoskla-csz</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
+        <loc>https://www.wens.sk/produkty/celoskla/celoskla-csal</loc>
+        <lastmod>2025-01-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- About Us Page -->
+    <url>
+        <loc>https://www.wens.sk/o-nas</loc>
+        <lastmod>2025-01-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- References/Portfolio Page -->
+    <url>
+        <loc>https://www.wens.sk/referencie</loc>
+        <lastmod>2025-01-23</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Contact Page -->
+    <url>
+        <loc>https://www.wens.sk/kontakt</loc>
+        <lastmod>2025-01-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Blog Page -->
+    <url>
+        <loc>https://www.wens.sk/blog</loc>
+        <lastmod>2025-01-23</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Privacy Policy Page -->
+    <url>
+        <loc>https://www.wens.sk/ochrana-osobnych-udajov</loc>
+        <lastmod>2025-11-30</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+</urlset>

@@ -1,0 +1,278 @@
+/* Contact Content Layout */
+.contact-content {
+    background: #fff;
+    padding: 60px 0;
+}
+
+.contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 0px 20px;
+    gap: 60px;
+    align-items: start;
+}
+
+/* Column Layout - Left and Right */
+.contact-column-left,
+.contact-column-right {
+    display: flex;
+    flex-direction: column;
+   
+    height: 100%;
+}
+
+/* Text Content (Top of each column) */
+.contact-text-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.main-heading-container {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.main-accent-line {
+    width: 60px;
+    height: 3px;
+    background: #ec1b23;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.location-main-heading {
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    margin: 0;
+    color: #000000;
+    letter-spacing: 0.5px;
+}
+
+.contact-header h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    margin: 0;
+    color: rgb(34, 34, 34);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.location-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.address-info p {
+    margin: 0;
+    line-height: var(--line-height-relaxed);
+    color: rgb(34, 34, 34);
+    font-weight: 400;
+    font-size: var(--font-size-base);
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+ 
+}
+
+.contact-info p {
+    margin: 0;
+    line-height: var(--line-height-normal);
+    color: rgb(34, 34, 34);
+    font-size: var(--font-size-base);
+}
+
+.contact-info a {
+    color: rgb(34, 34, 34);
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    color: #ec1b23;
+}
+
+.opening-hours {
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.opening-hours p {
+    margin: 0;
+    line-height: var(--line-height-normal);
+    color: rgb(34, 34, 34);
+    font-size: var(--font-size-base) ;
+}
+
+.opening-hours p:first-child {
+    margin-bottom: 3px;
+}
+
+.opening-hours strong {
+    color: rgb(34, 34, 34);
+}
+
+/* Image Content (Bottom of each column) */
+.contact-image-content {
+    flex-shrink: 0;
+    margin-top: 30px;
+}
+
+.location-image-container {
+    overflow: hidden;
+    border-radius: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 450px;
+}
+
+
+
+.location-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.location-image-container:hover .location-image {
+    transform: scale(1.05);
+}
+
+/* Location Maps */
+.location-map-container {
+    overflow: hidden;
+  
+}
+
+.location-map-container iframe {
+   
+    transition: filter 0.3s ease;
+    filter: grayscale(30%);
+}
+
+.location-map-container:hover iframe {
+    filter: grayscale(0%);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .contact-layout {
+        gap: 40px;
+    }
+    
+    
+    
+    .location-image-container {
+        height: 250px;
+    }
+    
+    .location-map-container iframe {
+        height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-content {
+        padding: 40px 0;
+    }
+    
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 80px;
+        max-width: 90%;
+    }
+    
+    .contact-header h2 {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .location-details {
+        padding: 20px 0;
+    }
+    
+    .location-image-container {
+        height: 200px;
+    }
+    
+    .location-map-container iframe {
+        height: 200px;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .contact-content {
+        padding: 30px 0;
+    }
+    .location-main-heading {
+        font-size: var(--font-size-2xl);
+        
+    }
+    
+    .contact-layout {
+        max-width: 90%;
+        gap: 80px;
+        padding: 0px;
+    }
+    
+    .contact-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .contact-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .location-details {
+        padding: 0;
+    }
+    
+    
+    
+    .location-image-container {
+        height: 180px;
+    }
+    
+    .location-map-container iframe {
+        height: 180px;
+    }
+}
+
+/* Fix Google Maps scroll interference */
+.location-map-container {
+    position: relative;
+}
+
+.location-map-container iframe {
+    pointer-events: none;
+}
+
+.location-map-container:hover::after {
+    content: "Kliknite pre interakciu s mapou";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: var(--font-size-sm);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.location-map-container.active iframe {
+    pointer-events: auto;
+}
+
+.location-map-container.active:hover::after {
+    display: none;
+}

@@ -1,0 +1,12 @@
+# robots.txt for WENS DOOR s.r.o.
+
+User-agent: *
+Allow: /
+
+# Disallow sensitive directories
+Disallow: /js/
+Disallow: /css/
+Disallow: /sources/
+
+# Sitemap location
+Sitemap: https://www.wens.sk/sitemap.xml

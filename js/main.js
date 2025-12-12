@@ -2,6 +2,8 @@
 import { initHeader } from './components/header.js?v=4.8';
 import { initFooter } from './components/footer.js?v=4.8';
 import { initSliders } from './components/slider.js?v=4.8';
+import { initForms } from './components/forms.js?v=4.8';
+import { initPricelistModal } from './components/pricelist-modal.js?v=4.8';
 
 // Initialize all components when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -14,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
 
-    console.log('Available functions:', { initHeader, initFooter });
+    console.log('Available functions:', { initHeader, initFooter, initForms, initPricelistModal });
 
     try {
         // Core components with error handling
@@ -39,6 +41,20 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Failed to initialize sliders:', error);
     }
 
+    try {
+        initForms();
+        console.log('Forms initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize forms:', error);
+    }
+
+    try {
+        initPricelistModal();
+        console.log('Pricelist modal initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize pricelist modal:', error);
+    }
+
     // Additional functionality
     initBackToTopButton();
     initUtilities();
@@ -53,6 +69,14 @@ function initEnhancements() {
         console.log('Sliders enhanced successfully');
     } catch (error) {
         console.error('Failed to enhance sliders:', error);
+    }
+
+    try {
+        initForms();
+        initPricelistModal();
+        console.log('Forms and modal enhanced successfully');
+    } catch (error) {
+        console.error('Failed to enhance forms/modal:', error);
     }
 
     // Additional functionality

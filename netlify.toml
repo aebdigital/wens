@@ -1,16 +1,7 @@
 [build]
   functions = "netlify/functions"
   publish = "."
-
-[dev]
-  framework = "#static"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
-  conditions = {Role = ["admin"]}
+  command = "echo 'No build command'"
 
 [[redirects]]
   from = "/api/*"

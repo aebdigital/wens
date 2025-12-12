@@ -1,5 +1,4 @@
-
-const https = require('https');
+const fetch = require('node-fetch');
 
 exports.handler = async (event, context) => {
     // Only allow POST
@@ -31,7 +30,7 @@ exports.handler = async (event, context) => {
             console.error('Missing env vars');
             return {
                 statusCode: 500,
-                body: JSON.stringify({ message: 'Server configuration error.' }),
+                body: JSON.stringify({ message: 'Server configuration error: Missing environment variables.' }),
             };
         }
 
@@ -68,58 +67,21 @@ exports.handler = async (event, context) => {
             html_body: htmlBody,
         };
 
-        // Helper function to send request via native https module
-        const sendEmail = (data) => {
-            return new Promise((resolve, reject) => {
-                const options = {
-                    hostname: 'api.smtp2go.com',
-                    path: '/v3/email/send',
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                };
+        const response = await fetch('https://api.smtp2go.com/v3/email/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(mailData),
+        });
 
-                const req = https.request(options, (res) => {
-                    let responseBody = '';
-                    res.on('data', (chunk) => {
-                        responseBody += chunk;
-                    });
-                    res.on('end', () => {
-                        resolve({
-                            statusCode: res.statusCode,
-                            body: responseBody
-                        });
-                    });
-                });
+        const data = await response.json();
 
-                req.on('error', (error) => {
-                    reject(error);
-                });
-
-                req.write(JSON.stringify(data));
-                req.end();
-            });
-        };
-
-        const response = await sendEmail(mailData);
-        let responseData;
-        
-        try {
-            responseData = JSON.parse(response.body);
-        } catch (e) {
-            console.error('Failed to parse SMTP2GO response', response.body);
-            // Even if parse fails, if status is 200 we might be ok, but let's be safe
-            responseData = { data: { succeeded: 0 } }; 
-        }
-
-        if (response.statusCode === 200 && responseData.data && responseData.data.succeeded > 0) {
+        if (response.ok && data.data && data.data.succeeded > 0) {
             return {
                 statusCode: 200,
                 body: JSON.stringify({ message: 'Email sent successfully!' }),
             };
         } else {
-            console.error('SMTP2GO Error:', responseData);
+            console.error('SMTP2GO Error:', data);
             return {
                 statusCode: 500,
                 body: JSON.stringify({ message: 'Failed to send email.' }),
@@ -130,7 +92,7 @@ exports.handler = async (event, context) => {
         console.error('Function Error:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: 'Internal Server Error' }),
+            body: JSON.stringify({ message: 'Internal Server Error', error: error.message }),
         };
     }
 };

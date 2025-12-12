@@ -7,7 +7,7 @@
     max-width: 300px;
     margin: 20px auto;
     padding: 15px 30px;
-    background-color: #ff0000; /* Bright red as requested */
+    background-color: rgb(236, 27, 35);
     color: #ffffff;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -15,7 +15,7 @@
     text-align: center;
     text-transform: uppercase;
     border: none;
-    border-radius: 4px;
+    border-radius: 0;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -23,7 +23,7 @@
 }
 
 .btn-pricelist:hover {
-    background-color: #cc0000;
+    background-color: rgb(200, 20, 28);
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
@@ -125,12 +125,12 @@
 }
 
 .btn-pricelist-submit {
-    background-color: #ff0000;
+    background-color: rgb(236, 27, 35);
     color: white;
     width: 100%;
     padding: 14px;
     border: none;
-    border-radius: 4px;
+    border-radius: 0;
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
@@ -139,7 +139,7 @@
 }
 
 .btn-pricelist-submit:hover {
-    background-color: #cc0000;
+    background-color: rgb(200, 20, 28);
 }
 
 .btn-pricelist-submit:disabled {

@@ -42,23 +42,23 @@ exports.handler = async (event, context) => {
         if (formType === 'pricelist') {
             subject = 'Žiadosť o cenník (Website)';
             textBody = `Nový záujem o cenník.\n\nEmail: ${email}`;
-            htmlBody = "
+            htmlBody = `
                 <h2>Nová žiadosť o cenník</h2>
                 <p><strong>Email klienta:</strong> ${email}</p>
                 <p>Vyžiadané zo stránky produktu.</p>
-            ";
+            `;
         } else {
             // Default contact form
             const { name, message } = body;
             subject = `Nová správa od: ${name || 'Návštevník'}`;
             textBody = `Meno: ${name}\nEmail: ${email}\nSpráva: ${message}`;
-            htmlBody = "
+            htmlBody = `
                 <h2>Nová správa z kontaktného formulára</h2>
                 <p><strong>Meno:</strong> ${name}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Správa:</strong></p>
                 <p>${message ? message.replace(/\n/g, '<br>') : 'Bez správy'}</p>
-            ";
+            `;
         }
 
         const smtp2goPayload = {

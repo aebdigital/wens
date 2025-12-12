@@ -168,3 +168,10 @@
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    .btn-pricelist {
+        font-size: 14px;
+    }
+}

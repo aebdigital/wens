@@ -1,9 +1,12 @@
-const fetch = require('node-fetch');
+const https = require('https');
 
 exports.handler = async (event, context) => {
     // Only allow POST
     if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
+        return {
+            statusCode: 405,
+            body: JSON.stringify({ message: 'Method Not Allowed' })
+        };
     }
 
     try {
@@ -22,15 +25,15 @@ exports.handler = async (event, context) => {
             };
         }
 
-        const SMTP2GO_API_KEY = process.env.SMTP2GO_API_KEY;
-        const BUSINESS_EMAIL = process.env.BUSINESS_EMAIL;
-        const SMTP2GO_FROM_EMAIL = process.env.SMTP2GO_FROM_EMAIL;
+        const apiKey = process.env.SMTP2GO_API_KEY;
+        const businessEmail = process.env.BUSINESS_EMAIL;
+        const fromEmail = process.env.SMTP2GO_FROM_EMAIL;
 
-        if (!SMTP2GO_API_KEY || !BUSINESS_EMAIL || !SMTP2GO_FROM_EMAIL) {
+        if (!apiKey || !businessEmail || !fromEmail) {
             console.error('Missing env vars');
             return {
                 statusCode: 500,
-                body: JSON.stringify({ message: 'Server configuration error: Missing environment variables.' }),
+                body: JSON.stringify({ message: 'Server configuration error.' }),
             };
         }
 
@@ -58,30 +61,24 @@ exports.handler = async (event, context) => {
             ";
         }
 
-        const mailData = {
-            api_key: SMTP2GO_API_KEY,
-            sender: SMTP2GO_FROM_EMAIL,
-            to: [BUSINESS_EMAIL],
+        const smtp2goPayload = {
+            api_key: apiKey,
+            sender: fromEmail,
+            to: [businessEmail],
             subject: subject,
             text_body: textBody,
-            html_body: htmlBody,
+            html_body: htmlBody
         };
 
-        const response = await fetch('https://api.smtp2go.com/v3/email/send', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(mailData),
-        });
+        const result = await sendEmailViaSMTP2GO(smtp2goPayload);
 
-        const data = await response.json();
-
-        if (response.ok && data.data && data.data.succeeded > 0) {
+        if (result.success) {
             return {
                 statusCode: 200,
                 body: JSON.stringify({ message: 'Email sent successfully!' }),
             };
         } else {
-            console.error('SMTP2GO Error:', data);
+            console.error('SMTP2GO Error:', result.error);
             return {
                 statusCode: 500,
                 body: JSON.stringify({ message: 'Failed to send email.' }),
@@ -96,3 +93,49 @@ exports.handler = async (event, context) => {
         };
     }
 };
+
+function sendEmailViaSMTP2GO(payload) {
+    return new Promise((resolve, reject) => {
+        const postData = JSON.stringify(payload);
+
+        const options = {
+            hostname: 'api.smtp2go.com',
+            port: 443,
+            path: '/v3/email/send',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(postData)
+            }
+        };
+
+        const req = https.request(options, (res) => {
+            let responseBody = '';
+
+            res.on('data', (chunk) => {
+                responseBody += chunk;
+            });
+
+            res.on('end', () => {
+                try {
+                    const response = JSON.parse(responseBody);
+                    // SMTP2GO success check
+                    if (res.statusCode === 200 && response.data && response.data.succeeded > 0) {
+                        resolve({ success: true });
+                    } else {
+                        resolve({ success: false, error: response });
+                    }
+                } catch (e) {
+                    resolve({ success: false, error: 'Invalid response from email service' });
+                }
+            });
+        });
+
+        req.on('error', (error) => {
+            resolve({ success: false, error: error.message });
+        });
+
+        req.write(postData);
+        req.end();
+    });
+}

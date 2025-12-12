@@ -16,7 +16,21 @@ exports.handler = async (event, context) => {
 
         const body = JSON.parse(event.body);
         const { formType, email } = body;
-        
+        const turnstileToken = body['cf-turnstile-response'];
+
+        // Verify Turnstile token
+        const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+        if (turnstileSecret && turnstileToken) {
+            const turnstileResult = await verifyTurnstile(turnstileToken, turnstileSecret);
+            if (!turnstileResult.success) {
+                console.error('Turnstile verification failed:', turnstileResult);
+                return {
+                    statusCode: 400,
+                    body: JSON.stringify({ message: 'Overenie zlyhalo. Skúste to znova.' }),
+                };
+            }
+        }
+
         // Validation
         if (!email) {
              return {
@@ -127,6 +141,51 @@ function sendEmailViaSMTP2GO(payload) {
                     }
                 } catch (e) {
                     resolve({ success: false, error: 'Invalid response from email service' });
+                }
+            });
+        });
+
+        req.on('error', (error) => {
+            resolve({ success: false, error: error.message });
+        });
+
+        req.write(postData);
+        req.end();
+    });
+}
+
+// Verify Cloudflare Turnstile token
+function verifyTurnstile(token, secret) {
+    return new Promise((resolve) => {
+        const postData = new URLSearchParams({
+            secret: secret,
+            response: token
+        }).toString();
+
+        const options = {
+            hostname: 'challenges.cloudflare.com',
+            port: 443,
+            path: '/turnstile/v0/siteverify',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': Buffer.byteLength(postData)
+            }
+        };
+
+        const req = https.request(options, (res) => {
+            let responseBody = '';
+
+            res.on('data', (chunk) => {
+                responseBody += chunk;
+            });
+
+            res.on('end', () => {
+                try {
+                    const response = JSON.parse(responseBody);
+                    resolve(response);
+                } catch (e) {
+                    resolve({ success: false, error: 'Invalid response from Turnstile' });
                 }
             });
         });

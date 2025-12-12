@@ -169,6 +169,12 @@
     border: 1px solid #f5c6cb;
 }
 
+/* Turnstile widget styling */
+.pricelist-form-group .cf-turnstile {
+    display: flex;
+    justify-content: center;
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
     .btn-pricelist {

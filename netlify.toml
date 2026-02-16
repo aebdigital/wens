@@ -1,0 +1,51 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/referencie.html"
+  to = "/referencie"
+  status = 301
+
+[[redirects]]
+  from = "/o-nas.html"
+  to = "/o-nas"
+  status = 301
+
+[[redirects]]
+  from = "/kontakt.html"
+  to = "/kontakt"
+  status = 301
+
+[[redirects]]
+  from = "/dvere.html"
+  to = "/produkty/dvere/seria-a"
+  status = 301
+
+[[redirects]]
+  from = "/schody.html"
+  to = "/produkty/schody"
+  status = 301
+
+[[redirects]]
+  from = "/nabytok.html"
+  to = "/produkty/nabytok"
+  status = 301
+
+[[redirects]]
+  from = "/obklady.html"
+  to = "/produkty/obklady"
+  status = 301
+
+[[redirects]]
+  from = "/celoskla.html"
+  to = "/produkty/celoskla/celoskla-css"
+  status = 301

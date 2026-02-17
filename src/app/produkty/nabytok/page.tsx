@@ -5,6 +5,7 @@ import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import ProductTabs from "@/components/ProductTabs";
 import Lightbox from "@/components/Lightbox";
+import MobileSidebar, { SidebarLink } from "@/components/MobileSidebar";
 import { PRODUCT_CATEGORIES } from "@/lib/data";
 
 interface NabytokCategory {
@@ -98,6 +99,16 @@ export default function NabytokPage() {
     [category]
   );
 
+  const sidebarLinks: SidebarLink[] = useMemo(
+    () =>
+      NABYTOK_CATEGORIES.map((cat) => ({
+        label: cat.label,
+        slug: cat.id,
+        onClick: () => setActiveCategory(cat.id),
+      })),
+    []
+  );
+
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
@@ -127,8 +138,8 @@ export default function NabytokPage() {
                       <button
                         onClick={() => setActiveCategory(cat.id)}
                         className={`block w-full text-left py-2 px-4 text-sm transition-colors duration-200 ${cat.id === activeCategory
-                            ? "bg-gray-100 font-semibold text-primary border-l-[3px] border-accent"
-                            : "text-gray-600 hover:text-primary hover:bg-gray-50"
+                          ? "bg-gray-100 font-semibold text-primary border-l-[3px] border-accent"
+                          : "text-gray-600 hover:text-primary hover:bg-gray-50"
                           }`}
                       >
                         {cat.label}
@@ -139,21 +150,6 @@ export default function NabytokPage() {
               </nav>
             </aside>
 
-            {/* Mobile Category Dropdown */}
-            <div className="lg:hidden w-full mb-6">
-              <select
-                value={activeCategory}
-                onChange={(e) => setActiveCategory(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded text-sm font-medium text-primary bg-white focus:outline-none focus:border-accent"
-              >
-                {NABYTOK_CATEGORIES.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-
             {/* Main Content */}
             <div className="flex-1 min-w-0">
               <div className="w-[60px] h-[3px] bg-accent mb-4" />
@@ -163,6 +159,14 @@ export default function NabytokPage() {
               <p className="text-base text-[rgb(34,34,34)] mb-6">
                 Kvalitný nábytok presne podľa vašich predstáv
               </p>
+
+              {/* Mobile Sidebar - Kategória + Referencie buttons */}
+              <MobileSidebar
+                title="Kategórie"
+                links={sidebarLinks}
+                activeSlug={activeCategory}
+                referencieHref="/referencie?tab=nabytok"
+              />
 
               {/* Main Image */}
               <div className="mb-5 cursor-pointer" onClick={() => openLightbox(0)}>

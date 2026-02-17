@@ -3,10 +3,11 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 
-interface SidebarLink {
-  href: string;
+export interface SidebarLink {
+  href?: string;
   label: string;
   slug: string;
+  onClick?: () => void;
 }
 
 interface MobileSidebarProps {
@@ -84,17 +85,31 @@ export default function MobileSidebar({
               <ul className="flex flex-col gap-1">
                 {links.map((link) => (
                   <li key={link.slug}>
-                    <Link
-                      href={link.href}
-                      onClick={close}
-                      className={`block py-3 px-4 text-sm transition-colors duration-200 ${
-                        link.slug === activeSlug
-                          ? "bg-gray-100 font-semibold text-primary border-l-[3px] border-accent"
-                          : "text-gray-600 hover:text-primary hover:bg-gray-50"
-                      }`}
-                    >
-                      {link.label}
-                    </Link>
+                    {link.onClick ? (
+                      <button
+                        onClick={() => {
+                          link.onClick?.();
+                          close();
+                        }}
+                        className={`block w-full text-left py-3 px-4 text-sm transition-colors duration-200 ${link.slug === activeSlug
+                            ? "bg-gray-100 font-semibold text-primary border-l-[3px] border-accent"
+                            : "text-gray-600 hover:text-primary hover:bg-gray-50"
+                          }`}
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link
+                        href={link.href || "#"}
+                        onClick={close}
+                        className={`block py-3 px-4 text-sm transition-colors duration-200 ${link.slug === activeSlug
+                            ? "bg-gray-100 font-semibold text-primary border-l-[3px] border-accent"
+                            : "text-gray-600 hover:text-primary hover:bg-gray-50"
+                          }`}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

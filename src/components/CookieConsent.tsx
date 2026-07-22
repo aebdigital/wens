@@ -9,6 +9,14 @@ interface CookiePreferences {
 }
 
 const STORAGE_KEY = "wens-cookie-consent";
+const CONSENT_EVENT = "wens-cookie-consent-updated";
+
+const storePreferences = (preferences: CookiePreferences) => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+  window.dispatchEvent(
+    new CustomEvent<CookiePreferences>(CONSENT_EVENT, { detail: preferences })
+  );
+};
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
@@ -20,16 +28,20 @@ export default function CookieConsent() {
   });
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (!stored) {
-      setVisible(true);
-    } else {
-      try {
-        setPreferences(JSON.parse(stored));
-      } catch {
+    const initialPreferencesFrame = window.requestAnimationFrame(() => {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) {
         setVisible(true);
+      } else {
+        try {
+          setPreferences(JSON.parse(stored));
+        } catch {
+          setVisible(true);
+        }
       }
-    }
+    });
+
+    return () => window.cancelAnimationFrame(initialPreferencesFrame);
   }, []);
 
   const handleOpenSettings = useCallback(() => {
@@ -49,13 +61,13 @@ export default function CookieConsent() {
       marketing: true,
     };
     setPreferences(prefs);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+    storePreferences(prefs);
     setVisible(false);
     setShowSettings(false);
   };
 
   const saveSettings = () => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+    storePreferences(preferences);
     setVisible(false);
     setShowSettings(false);
   };

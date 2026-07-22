@@ -103,7 +103,10 @@ export default function PrivacyPage() {
               fungovanie stránky a nemožno ich vypnúť.
               <br />
               <strong>Analytické cookies</strong> - pomáhajú nám porozumieť, ako
-              návštevníci používajú stránku.
+              návštevníci používajú stránku. Po udelení súhlasu používame
+              Google Analytics na meranie návštevnosti, zobrazených stránok a
+              priemerného aktívneho času stráveného na stránke. Tieto údaje
+              používame v súhrnnej podobe na zlepšovanie webu.
               <br />
               <strong>Marketingové cookies</strong> - používajú sa na zobrazenie
               relevantných reklám.

@@ -86,6 +86,21 @@ export default function PricelistModal() {
       if (response.ok) {
         setStatus("success");
         setMessage("Cenník bol úspešne vyžiadaný. Skontrolujte si email.");
+
+        // Conversion tracking — fires only when the Google tag is loaded
+        // (i.e. the visitor accepted analytics/marketing cookies).
+        if (typeof window !== "undefined" && typeof window.gtag === "function") {
+          // 1) Google Ads conversion — "Odoslanie formulára pre potenciálnych zákazníkov"
+          window.gtag("event", "conversion", {
+            send_to: "AW-728967972/qNH2CMTk1YgYEKTWzNsC",
+          });
+          // 2) GA4 lead event (for analytics reporting)
+          window.gtag("event", "generate_lead", {
+            currency: "EUR",
+            value: 0,
+          });
+        }
+
         setEmail("");
         if (window.turnstile && widgetIdRef.current) {
           window.turnstile.reset(widgetIdRef.current);

@@ -35,16 +35,21 @@ function readStoredPreferences(): CookiePreferences {
   }
 }
 
+/**
+ * Consent Mode v2 — "always load, default denied".
+ * The Google tag (GA4 + Google Ads) loads on every page so that conversions
+ * still send cookieless modelling pings for visitors who haven't consented.
+ * No cookies are set until the visitor grants analytics/marketing consent.
+ */
 export default function GoogleAnalytics() {
   const pathname = usePathname();
-  const [preferences, setPreferences] = useState<CookiePreferences>(DEFAULT_PREFERENCES);
-  const [preferencesLoaded, setPreferencesLoaded] = useState(false);
+  const [preferences, setPreferences] =
+    useState<CookiePreferences>(DEFAULT_PREFERENCES);
   const [tagReady, setTagReady] = useState(false);
 
   useEffect(() => {
     const initialPreferencesFrame = window.requestAnimationFrame(() => {
       setPreferences(readStoredPreferences());
-      setPreferencesLoaded(true);
     });
 
     const handleConsentUpdate = (event: Event) => {
@@ -62,11 +67,10 @@ export default function GoogleAnalytics() {
     };
   }, []);
 
-  const analyticsEnabled = preferences.analytics && Boolean(GA_MEASUREMENT_ID);
+  const analyticsEnabled = preferences.analytics;
   const marketingEnabled = preferences.marketing;
-  const shouldLoadGoogleTag = analyticsEnabled || marketingEnabled;
-  const loaderId = analyticsEnabled ? GA_MEASUREMENT_ID : GOOGLE_ADS_ID;
 
+  // Push consent state to Google whenever it changes (and once the tag is ready).
   useEffect(() => {
     if (!tagReady || !window.gtag) return;
 
@@ -76,18 +80,11 @@ export default function GoogleAnalytics() {
       ad_user_data: marketingEnabled ? "granted" : "denied",
       ad_personalization: marketingEnabled ? "granted" : "denied",
     });
-
-    if (analyticsEnabled && GA_MEASUREMENT_ID) {
-      window.gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
-    }
-
-    if (marketingEnabled) {
-      window.gtag("config", GOOGLE_ADS_ID);
-    }
   }, [analyticsEnabled, marketingEnabled, tagReady]);
 
+  // Manual GA4 page_view on route change, only when analytics is granted.
   useEffect(() => {
-    if (!tagReady || !analyticsEnabled || !GA_MEASUREMENT_ID || !window.gtag) return;
+    if (!tagReady || !analyticsEnabled || !window.gtag) return;
 
     window.gtag("event", "page_view", {
       send_to: GA_MEASUREMENT_ID,
@@ -97,26 +94,28 @@ export default function GoogleAnalytics() {
     });
   }, [analyticsEnabled, pathname, tagReady]);
 
-  if (!preferencesLoaded || !shouldLoadGoogleTag || !loaderId) return null;
-
   return (
     <>
       <Script id="google-consent" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
           window.gtag = window.gtag || function(){window.dataLayer.push(arguments);};
-          window.gtag('consent', 'default', {
-            analytics_storage: '${analyticsEnabled ? "granted" : "denied"}',
-            ad_storage: '${marketingEnabled ? "granted" : "denied"}',
-            ad_user_data: '${marketingEnabled ? "granted" : "denied"}',
-            ad_personalization: '${marketingEnabled ? "granted" : "denied"}'
+          // Default: everything denied until the visitor consents (Consent Mode v2).
+          gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            wait_for_update: 500
           });
-          window.gtag('js', new Date());
+          gtag('js', new Date());
+          gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });
+          gtag('config', '${GOOGLE_ADS_ID}');
         `}
       </Script>
       <Script
         id="google-tag"
-        src={`https://www.googletagmanager.com/gtag/js?id=${loaderId}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
         onLoad={() => setTagReady(true)}
         onReady={() => setTagReady(true)}
